@@ -9,6 +9,8 @@ module.exports = {
 		oc_userconfig: true,
 		dayNames: true,
 		firstDay: true,
+		supportedBrowsers: true,
+		supportedBrowsersRegExp: true,
 	},
 	extends: ['@nextcloud'],
 	rules: {
