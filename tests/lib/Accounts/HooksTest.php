@@ -43,7 +43,7 @@ class HooksTest extends TestCase {
 	/** @var AccountManager|MockObject */
 	private $accountManager;
 
-	/** @var Hooks|MockObject */
+	/** @var Hooks */
 	private $hooks;
 
 	protected function setUp(): void {
@@ -53,12 +53,7 @@ class HooksTest extends TestCase {
 		$this->accountManager = $this->getMockBuilder(AccountManager::class)
 			->disableOriginalConstructor()->getMock();
 
-		$this->hooks = $this->getMockBuilder(Hooks::class)
-			->setConstructorArgs([$this->logger])
-			->setMethods(['getAccountManager'])
-			->getMock();
-
-		$this->hooks->method('getAccountManager')->willReturn($this->accountManager);
+		$this->hooks = new Hooks($this->logger, $this->accountManager);
 	}
 
 	/**
