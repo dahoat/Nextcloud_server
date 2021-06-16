@@ -20,65 +20,49 @@
 -->
 
 <template>
-	<h3>
-		<label for="email">{{ t('settings', 'Email') }}</label>
-
-		<FederationControl :scope.sync="localScope" @update:scope="onScopeChange" />
-
-		<AddButton v-if="canEditEmails"
-			class="add-button"
-			:disabled="!isValidForm"
-			@click.stop.prevent="addAdditionalEmail" />
-	</h3>
+	<button
+		:disabled="disabled"
+		@click.stop.prevent="onClick">
+		<span class="icon icon-add" />
+		Add
+	</button>
 </template>
 
 <script>
-import FederationControl from './FederationControl'
-import AddButton from './AddButton'
-
 export default {
-	name: 'Heading',
-
-	components: {
-		FederationControl,
-		AddButton,
-	},
+	name: 'AddButton',
 
 	props: {
-		canEditEmails: {
+		disabled: {
 			type: Boolean,
-			default: true,
-		},
-		isValidForm: {
-			type: Boolean,
-			default: true,
-		},
-		scope: {
-			type: String,
 			required: true,
 		},
 	},
 
-	data() {
-		return {
-			localScope: this.scope,
-		}
-	},
-
 	methods: {
-		addAdditionalEmail() {
-			this.$emit('addAdditionalEmail')
-		},
-
-		onScopeChange(scope) {
-			this.$emit('update:scope', scope)
+		onClick(e) {
+			this.$emit('click', e)
 		},
 	},
 }
 </script>
 
 <style lang="scss" scoped>
-	.add-button {
-		margin: -12px 0 0 auto !important;
+	button {
+		height: 44px;
+		padding: 0 16px;
+		border: none;
+		background-color: transparent;
+		opacity: 0.3;
+
+		&:hover:enabled {
+			background-color: rgba(127, 127, 127, .25);
+			opacity: 1;
+		}
+
+		.icon {
+			opacity: 1;
+			margin-right: 8px;
+		}
 	}
 </style>
